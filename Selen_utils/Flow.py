@@ -34,7 +34,7 @@ class Flow:
     wait: WebDriverWait = None
     ip: str = None
 
-    def start_driver(self):
+    def start_driver(self, anticaptcha_on=False):
         # self.ads.creade_ads_profile(cookie=self.cookie)
         # self.driver = self.ads.connect_to_ads_selenium(self.ads.start_ads_profile())
         options_c = Options()
@@ -48,8 +48,9 @@ class Flow:
                    {'http': f'http://{self.proxy.url_proxy}',
                     'http': f'https://{self.proxy.url_proxy}', }}
         options_c.add_argument(f"user-agent={ua.random}")
-        options_c.add_extension(
-            f'{homeDir}/Utility/anticaptcha-plugin_v0.63.zip')
+        if anticaptcha_on:
+            options_c.add_extension(
+                f'anticaptcha-plugin_v0.63.zip')
         self.driver = webdriver.Chrome(
             options=options_c, seleniumwire_options=options)
         self.driver.set_window_size(1700, 1080)
