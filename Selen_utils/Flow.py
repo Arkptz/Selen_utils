@@ -68,6 +68,7 @@ class Flow:
         for num, i in enumerate(range(15)):
             try:
                 self.driver.get(link)
+                return True
             except Exception as e:
                 log.debug(f'get_new -- {e}')
             if num == 14:

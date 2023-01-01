@@ -10,19 +10,22 @@ class Captcha:
     @staticmethod
     def activate_anti_captcha(driver: webdriver.Chrome):
         for i in range(3):
-            message = {
-                # всегда указывается именно этот получатель API сообщения
-                'receiver': 'antiCaptchaPlugin',
-                # тип запроса, например setOptions
-                'type': 'setOptions',
-                # мерджим с дополнительными данными
-                'options': {'antiCaptchaApiKey': 'e36b5b6d9bfc7b4ca2bba2e6c5fd0e38'}
-            }
-            # выполняем JS код на странице
-            # а именно отправляем сообщение стандартным методом window.postMessage
-            return driver.execute_script("""
-            return window.postMessage({});
-            """.format(json.dumps(message)))
+            try:
+                message = {
+                    # всегда указывается именно этот получатель API сообщения
+                    'receiver': 'antiCaptchaPlugin',
+                    # тип запроса, например setOptions
+                    'type': 'setOptions',
+                    # мерджим с дополнительными данными
+                    'options': {'antiCaptchaApiKey': 'e36b5b6d9bfc7b4ca2bba2e6c5fd0e38'}
+                }
+                # выполняем JS код на странице
+                # а именно отправляем сообщение стандартным методом window.postMessage
+                return driver.execute_script("""
+                return window.postMessage({});
+                """.format(json.dumps(message)))
+            except Exception as e:
+                pass
         return None
 
     @staticmethod
